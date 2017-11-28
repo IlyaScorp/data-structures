@@ -70,7 +70,7 @@ public class SolverExt {
     }
 
     private static String infToPostfic(String str){
-        Stack<Character> stack = new Stack<>();
+        ArrayStack<Character> stack = new ArrayStack<>();
         String[] arr = str.split(" ");
         EasyMap<Character,Integer> prior = new EasyMap<>();
         prior.put('*',3);
