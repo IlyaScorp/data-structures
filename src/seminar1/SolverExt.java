@@ -3,7 +3,6 @@ package Tasks;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Stack;
 
 /**
  * ( 1 + ( ( 2 + 3 ) * ( 4 * 5 ) ) ) = 101
@@ -35,7 +34,7 @@ public class SolverExt {
     private static double evaluate(String values) {
         String[] arr = infToPostfic(values).split(" ");
         int tmp;
-        Stack<Integer> stack = new Stack<>();
+        LinkedStack<Integer> stack = new LinkedStack<>();
         for (int i = 0; i < arr.length; i++) {
             switch (arr[i]){
                 case "*": stack.push(stack.pop() * stack.pop());
