@@ -1,6 +1,7 @@
-package seminar1.collections;
+package Tasks;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class LinkedQueue<Item> implements IQueue<Item> {
 
@@ -11,14 +12,34 @@ public class LinkedQueue<Item> implements IQueue<Item> {
 
     @Override
     public void enqueue(Item item) {
-        /* TODO: implement it */
+/* TODO: implement it */
+
+        Node<Item> l = tail;
+        Node<Item> newItem = new Node<Item>(item, null);
+        tail = newItem;
+        if (l == null){
+            head = newItem;
+        }else {
+            l.next = newItem;
+        }
+        size++;
     }
 
     @Override
     public Item dequeue() {
-        /* TODO: implement it */
-        return null;
+/* TODO: implement it */
+
+        if (size == 0){
+            throw  new NoSuchElementException();
+        }else {
+            Item temp = head.item;
+            head = head.next;
+            size--;
+            return temp;
+        }
     }
+
+
 
     @Override
     public boolean isEmpty() {
@@ -36,17 +57,20 @@ public class LinkedQueue<Item> implements IQueue<Item> {
     }
 
     private class LinkedQueueIterator implements Iterator<Item> {
-
+         private int count = size;
+         private Node<Item> IterItem = head;
         @Override
         public boolean hasNext() {
-            /* TODO: implement it */
-            return false;
+            return count != 0;
         }
 
         @Override
         public Item next() {
-            /* TODO: implement it */
-            return null;
+            Item tmp = IterItem.item;
+            IterItem = IterItem.next;
+            count--;
+            return tmp;
+
         }
 
     }
@@ -64,4 +88,5 @@ public class LinkedQueue<Item> implements IQueue<Item> {
             this.next = next;
         }
     }
+
 }

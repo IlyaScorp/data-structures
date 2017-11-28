@@ -1,14 +1,15 @@
-package seminar1.collections;
+package Tasks;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class ArrayStack<Item> implements IStack<Item> {
 
-    private static final int DEFAULT_CAPACITY = 10;
+    private static final int DEFAULT_CAPACITY = 4;
 
     private Item[] elementData;
-    private int size;
+    private int size = 0;
 
     @SuppressWarnings("unchecked")
     public ArrayStack() {
@@ -18,12 +19,34 @@ public class ArrayStack<Item> implements IStack<Item> {
     @Override
     public void push(Item item) {
         /* TODO: implement it */
+        if (elementData.length > size){
+            elementData[size++] = item;
+        }else{
+            grow();
+            elementData[size++] = item;
+        }
+
     }
+
+
+    public Item peek(){
+        return elementData[size];
+    }
+
 
     @Override
     public Item pop() {
         /* TODO: implement it */
-        return null;
+        if (elementData.length > 4 * size){
+            shrink();
+        }
+
+        Item temp = elementData[--size];
+        if (temp == null){
+            throw  new NoSuchElementException();
+        }else {
+            return temp;
+        }
     }
 
     @Override
@@ -36,12 +59,16 @@ public class ArrayStack<Item> implements IStack<Item> {
         return size;
     }
 
+
+    @SuppressWarnings("unchecked")
     private void grow() {
         /**
          * TODO: implement it
          * Если массив заполнился,
          * то увеличить его размер в полтора раз
          */
+        changeCapacity(elementData.length/2 + elementData.length);
+
     }
 
     private void shrink() {
@@ -50,6 +77,7 @@ public class ArrayStack<Item> implements IStack<Item> {
          * Если количество элементов в четыре раза меньше,
          * то уменьшить его размер в два раза
          */
+        changeCapacity(elementData.length/2);
     }
 
     private void changeCapacity(int newCapacity) {

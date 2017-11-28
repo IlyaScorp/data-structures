@@ -1,4 +1,4 @@
-package seminar1.collections;
+package Tasks;
 
 import java.util.Iterator;
 

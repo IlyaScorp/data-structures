@@ -1,21 +1,39 @@
-package seminar1.collections;
+package Tasks;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class LinkedStack<Item> implements IStack<Item> {
 
     private Node<Item> head;
+    private Node<Item> last;
     private int size;
 
     @Override
     public void push(Item item) {
         /* TODO: implement it */
+        Node<Item> newNode = new Node<>(item, null);
+
+        if (head == null){
+            head = newNode;
+        }else{
+            Node<Item> current = head;
+            head = newNode;
+            head.next = current;
+        }
+        size++;
     }
 
     @Override
     public Item pop() {
-        /* TODO: implement it */
-        return null;
+        if (size == 0){
+            throw  new NoSuchElementException();
+        }else {
+            Item temp = head.item;
+            head = head.next;
+            size--;
+            return temp;
+        }
     }
 
     @Override
@@ -38,13 +56,13 @@ public class LinkedStack<Item> implements IStack<Item> {
         @Override
         public boolean hasNext() {
             /* TODO: implement it */
-            return false;
+            return size != 0;
         }
 
         @Override
         public Item next() {
             /* TODO: implement it */
-            return null;
+            return head.item;
         }
 
     }
@@ -58,4 +76,6 @@ public class LinkedStack<Item> implements IStack<Item> {
             this.next = next;
         }
     }
+
+
 }
