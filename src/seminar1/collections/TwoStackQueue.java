@@ -1,6 +1,7 @@
-package seminar1.collections;
+package Tasks;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class TwoStackQueue<Item> implements IQueue<Item> {
 
@@ -9,35 +10,49 @@ public class TwoStackQueue<Item> implements IQueue<Item> {
 
     public TwoStackQueue() {
         /* TODO: implement it */
+        stack1 = new ArrayStack<>();
+        stack2 = new ArrayStack<>();
+//        stack1 = new LinkedStack<>();
+//        stack2 = new LinkedStack<>();
     }
 
     @Override
     public void enqueue(Item item) {
         /* TODO: implement it */
+        stack1.push(item);
     }
 
     @Override
     public Item dequeue() {
         /* TODO: implement it */
-        return null;
+        if (stack2.isEmpty()) {
+            if (stack1.isEmpty()){ throw new NoSuchElementException();} else { getItem();}
+        }
+       return stack2.pop();
     }
 
     @Override
     public boolean isEmpty() {
         /* TODO: implement it */
-        return true;
+        return (stack1.isEmpty() && stack2.isEmpty());
     }
 
     @Override
     public int size() {
         /* TODO: implement it */
-        return 0;
+        return (stack2.size() + stack1.size());
     }
 
     @Override
     public Iterator<Item> iterator() {
         /* TODO: implement it (optional) */
         return null;
+    }
+    private void getItem(){
+
+            while (!stack1.isEmpty()){
+                stack2.push(stack1.pop());
+            }
     }
 
 }
