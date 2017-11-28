@@ -53,7 +53,11 @@ public class ArrayStack<Item> implements IStack<Item> {
     public boolean isEmpty() {
         return size == 0;
     }
-
+    
+    public Item peek(){
+        return elementData[size - 1];
+    }
+    
     @Override
     public int size() {
         return size;
