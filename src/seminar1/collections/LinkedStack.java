@@ -52,17 +52,25 @@ public class LinkedStack<Item> implements IStack<Item> {
     }
 
     private class LinkedStackIterator implements Iterator<Item> {
+        private int count = size;
+        private Node<Item> IterItem = head;
 
         @Override
         public boolean hasNext() {
             /* TODO: implement it */
-            return size != 0;
+            return count != 0;
         }
 
         @Override
         public Item next() {
             /* TODO: implement it */
-            return head.item;
+            if (IterItem.item != null){
+                Item tmp = IterItem.item;
+                IterItem = IterItem.next;
+                return tmp;
+            }else {
+                 throw new NoSuchElementException();
+            }
         }
 
     }
