@@ -1,64 +1,144 @@
-package seminar1.collections;
+package Tasks;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 public class CyclicArrayDeque<Item> implements IDeque<Item> {
 
+    private static final int DEFAULT_CAPACITY = 10;
+
     private Item[] elementData;
+
+    private int start = 0;
+    private int end = 1;
+
+    private int size = 0;
+    @SuppressWarnings("unchecked")
+    public CyclicArrayDeque() {
+        elementData = (Item[]) new Object[DEFAULT_CAPACITY];
+    }
 
     @Override
     public void pushFront(Item item) {
-        /* TODO: implement it */
+        //int newIndex = start == 0 ? elementData.length - 1 : start - 1;
+        elementData[start] = item;
+        start = start == 0 ? elementData.length - 1 : start - 1;
+        size++;
+        if (size() == elementData.length) {
+            grow();
+        }
     }
 
     @Override
     public void pushBack(Item item) {
-        /* TODO: implement it */
+        elementData[end] = item;
+        end = (end+1)%elementData.length;
+        size++;
+        if (size() == elementData.length) {
+            grow();
+        }
     }
 
     @Override
     public Item popFront() {
-        /* TODO: implement it */
-        return null;
+        Item temp;
+        if (isEmpty()) {
+            temp = null;
+        } else {
+            temp = elementData[start];
+            elementData[start] = null;
+            start = (start+1)%elementData.length;
+            size--;
+            if (size()*4 <= elementData.length) {
+                shrink();
+            }
+        }
+        return temp;
     }
 
     @Override
     public Item popBack() {
-        /* TODO: implement it */
-        return null;
+        Item temp;
+        if (isEmpty()) {
+            temp = null;
+        } else {
+            temp = elementData[end];
+            elementData[end] = null;
+            end = (end-1)%elementData.length;
+            size--;
+            if (size()*4 <= elementData.length) {
+                shrink();
+            }
+        }
+        return temp;
     }
 
     @Override
     public boolean isEmpty() {
-        /* TODO: implement it */
-        return false;
+        return size == 0;
     }
+
 
     @Override
     public int size() {
-        /* TODO: implement it */
-        return 0;
+        return size;
     }
 
+
+    @SuppressWarnings("unchecked")
     private void grow() {
-        /**
-         * TODO: implement it
-         * Если массив заполнился,
-         * то увеличить его размер в полтора раз
-         */
+
+        Item[] tempData = (Item[]) new Object[size()];
+
+        Iterator iterator = iterator();
+        for (int i=0; i<size(); i++) {
+            tempData[i] = (Item) iterator.next();
+        }
+        Arrays.fill(elementData, null);
+
+        start = 0;
+        end = tempData.length;
+
+        Arrays.copyOf(tempData, (int)(tempData.length*1.5));
     }
 
+    @SuppressWarnings("unchecked")
     private void shrink() {
-        /**
-         * TODO: implement it
-         * Если количество элементов в четыре раза меньше,
-         * то уменьшить его размер в два раза
-         */
+        Item[] tempData = (Item[]) new Object[size()];
+
+        Iterator iterator = iterator();
+        for (int i=0; i<size(); i++) {
+            tempData[i] = (Item) iterator.next();
+        }
+        Arrays.fill(elementData, null);
+
+        start = 0;
+        end = tempData.length;
+
+        Arrays.copyOf(tempData, tempData.length/2);
     }
+
 
     @Override
     public Iterator<Item> iterator() {
-        /* TODO: implement it */
-        return null;
+        return new CyclicArrayDequeIterator();
+    }
+
+    private class CyclicArrayDequeIterator implements Iterator<Item> {
+
+        private int currentPosition = start+1;
+        private int iter = 0;
+
+        @Override
+        public boolean hasNext() {
+            return iter != size();
+        }
+
+        @Override
+        public Item next() {
+            iter++;
+            return elementData[(currentPosition++)%elementData.length];
+        }
+
     }
 }
