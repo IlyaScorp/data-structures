@@ -1,4 +1,4 @@
-package seminar1.iterators;
+package iterators;
 
 import java.util.Iterator;
 import java.util.Random;
@@ -20,7 +20,7 @@ public class IncreasingIterator implements Iterator<Integer> {
 
     public IncreasingIterator(int start, int maxGrowth, int stepLimit) {
         this.curr = start;
-        this.maxGrowth = maxGrowth + 1; //because in random.nextInt(upperBound) — upperBound is exclusive
+        this.maxGrowth = maxGrowth + 1;
         this.name = nextName++ + "-";
         this.valueLimit = Integer.MAX_VALUE - maxGrowth;
         this.stepLimit = stepLimit == 0 ? Integer.MAX_VALUE : stepLimit;

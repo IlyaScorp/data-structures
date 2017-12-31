@@ -1,4 +1,4 @@
-package seminar1.iterators;
+package iterators;
 
 public class PeekingIncreasingIterator extends IncreasingIterator implements IPeekingIterator<Integer> {
 
@@ -32,5 +32,13 @@ public class PeekingIncreasingIterator extends IncreasingIterator implements IPe
             hasPeeked = true;
         }
         return peekedElement;
+    }
+
+    public int compareTo(PeekingIncreasingIterator iter) {
+        if(this.peek()>iter.peek())
+            return 1;
+        if(this.peek()<iter.peek())
+            return -1;
+        return 0;
     }
 }
