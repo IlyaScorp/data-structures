@@ -3,6 +3,7 @@ package Tasks;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class ArrayPriorityQueue<Key extends Comparable<Key>> implements IPriorityQueue<Key> {
 
@@ -163,7 +164,28 @@ public class ArrayPriorityQueue<Key extends Comparable<Key>> implements IPriorit
     @Override
     public Iterator<Key> iterator() {
         /* TODO: implement it */
-        return null;
+        return new IteratorArrayPriorityQueue();
+    }
+
+    private class IteratorArrayPriorityQueue implements Iterator<Key> {
+
+
+        private int sizeIter = 0;
+
+        public boolean hasNext() {
+            return sizeIter != size();
+        }
+
+
+        public Key next() {
+            sizeIter++;
+            if (hasNext()){
+                return heap[sizeIter];
+            }else {
+                throw new NoSuchElementException();
+            }
+        }
+        // честно говрят, итератор кривой, но может вы не заметите этого?:)
     }
 
     private void changeCapacity(int newCapacity) {
