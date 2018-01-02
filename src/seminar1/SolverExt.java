@@ -1,4 +1,7 @@
-package Tasks;
+package seminar1;
+
+import seminar1.collections.ArrayStack;
+import seminar1.collections.LinkedStack;
 
 import java.io.BufferedReader;
 import java.io.IOException;

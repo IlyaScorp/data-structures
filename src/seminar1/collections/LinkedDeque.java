@@ -1,4 +1,4 @@
-package Tasks;
+package seminar1.collections;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -91,6 +91,7 @@ public class LinkedDeque<Item> implements IDeque<Item> {
         /* TODO: implement it */
         return new LinkedDequeIterator();
     }
+
     private class LinkedDequeIterator implements Iterator<Item>{
 
         private Node<Item> nodeIter = tail;

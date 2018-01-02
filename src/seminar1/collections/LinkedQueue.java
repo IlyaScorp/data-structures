@@ -1,4 +1,4 @@
-package Tasks;
+package seminar1.collections;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
